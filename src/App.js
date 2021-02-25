@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import 'bulma/css/bulma.css';
+import foods from './foods.json';
+import Foodbox from './components/Foodbox';
+import AddFood from './components/AddFood';
+class App extends React.Component {
+  state = {
+    foods: foods,
+  };
+  addNewFood = (newFood) => {
+    const updateFood = [...this.state.foods, newFood];
+    this.setState({ foods: updateFood });
+  };
+  render() {
+    return (
+      <div className="App">
+        <AddFood addFood={this.addNewFood} />
+        <h2 style={{ fontSize: '40px', textAlign: 'center' }}>IRON NURITION</h2>
+        {this.state.foods.map((food) => {
+          return <Foodbox key={food.image} food={food} />;
+        })}
+      </div>
+    );
+  }
 }
-
 export default App;
+
